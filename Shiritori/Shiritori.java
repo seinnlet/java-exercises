@@ -1,4 +1,4 @@
-package Shiritori;
+package shiritori;
 
 import java.util.Scanner;
 
