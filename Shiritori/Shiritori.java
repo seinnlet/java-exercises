@@ -1,5 +1,6 @@
 package shiritori;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Shiritori {
@@ -18,21 +19,32 @@ public class Shiritori {
 	
 	/*
 	 * 「しりとり」 という言葉から始まり、「ん」で終わったらゲーム終了
-	 * 
 	 * @param String	前回入力した言葉
 	 */
 	static void play(String currentWord) {
 		int i = 1;
+		ArrayList<String> words = new ArrayList<String>();
+		
 		System.out.print(currentWord + "\n" + i + "回目 「");	
 		String newWord = inputWord(getLastCharacter(currentWord));
 		
 		while(getLastCharacter(newWord) != 'ん') {
 			
-			if(checkCharacter(getFirstCharacter(newWord), getLastCharacter(currentWord))) {
-				currentWord = newWord;
-				i++;
+			if (newWord.strip().length() > 1) {			// 2文字以上チェック
+				
+				if (words.contains(newWord)) {			// 同じ言葉チェック
+					System.out.println("同じ言葉です。もう一回入力してください。");
+				} else {
+					
+					if(checkCharacter(getFirstCharacter(newWord), getLastCharacter(currentWord))) {
+						currentWord = newWord;
+						i++;
+					} else {
+						System.out.println("違います。もう一回入力してください。	");
+					}
+				}
 			} else {
-				System.out.println("違います。もう一回入力してください。	");
+				System.out.println("2文字以上入力してください。");
 			}
 			System.out.print(i + "回目 「");
 			newWord = inputWord(getLastCharacter(currentWord));
@@ -42,9 +54,8 @@ public class Shiritori {
 	}
 	
 	/*
-	 * 最後の文字をゲットする
-	 * 
-	 * @param  String 	入力した前回の言葉
+	 * ヌルではない言葉の最後の文字をゲットする
+	 * @param  String 	前回の言葉
 	 * @return char		前回の言葉の最後の文字
 	 */
 	static char getLastCharacter(String str) {
