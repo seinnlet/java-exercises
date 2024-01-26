@@ -6,12 +6,12 @@ public class Shiritori {
 
 	public static void main(String[] args) {
 		
-		initial();
+		init();
 		play("しりとり");
 		
 	}
 	
-	static void initial() {
+	static void init() {
 		System.out.println("しりとり");
 		System.out.println("----");
 	}
