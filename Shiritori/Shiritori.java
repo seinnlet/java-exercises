@@ -38,6 +38,7 @@ public class Shiritori {
 					
 					if(checkCharacter(getFirstCharacter(newWord), getLastCharacter(currentWord))) {
 						currentWord = newWord;
+						words.add(newWord);
 						i++;
 					} else {
 						System.out.println("違います。もう一回入力してください。	");
