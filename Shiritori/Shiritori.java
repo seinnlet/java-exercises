@@ -48,10 +48,13 @@ public class Shiritori {
 	 * @return char		前回の言葉の最後の文字
 	 */
 	static char getLastCharacter(String str) {
-		char lastChar = toUpperCharacter(str.charAt(str.length()-1));
-		
-		if (lastChar == 'ー') {
-			lastChar = changeLongVowel(toUpperCharacter(str.charAt(str.length()-2)));
+		char lastChar = '　';
+		if (!str.strip().equals("")) {
+			lastChar = toUpperCharacter(str.charAt(str.length()-1));
+			
+			if (lastChar == 'ー') {
+				lastChar = changeLongVowel(toUpperCharacter(str.charAt(str.length()-2)));
+			}
 		}
 		return lastChar;
 	}
