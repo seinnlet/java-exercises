@@ -55,32 +55,6 @@ public class Shiritori {
 	}
 	
 	/*
-	 * ヌルではない言葉の最後の文字をゲットする
-	 * @param  String 	前回の言葉
-	 * @return char		前回の言葉の最後の文字
-	 */
-	static char getLastCharacter(String str) {
-		char lastChar = '　';
-		if (!str.strip().equals("")) {
-			lastChar = toUpperCharacter(str.charAt(str.length()-1));
-			
-			if (lastChar == 'ー') {
-				lastChar = changeLongVowel(toUpperCharacter(str.charAt(str.length()-2)));
-			}
-		}
-		return lastChar;
-	}
-	
-	/*
-	 * 最初の文字をゲットする
-	 * @param  String 	新しい言葉
-	 * @return char 	新しい言葉の最初の文字
-	 */
-	static char getFirstCharacter(String str) {
-		return str.charAt(0);
-	}
-	
-	/*
 	 * 新しい言葉を入力する（カタカナの場合、ひらがなに交換）
 	 * @param  Char		前回の言葉の最後の文字
 	 * @return String	新しい言葉
@@ -104,6 +78,32 @@ public class Shiritori {
 			word = sb.toString().strip();
 		}
 		return word;
+	}
+	
+	/*
+	 * ヌルではない言葉の最後の文字をゲットする
+	 * @param  String 	前回の言葉
+	 * @return char		前回の言葉の最後の文字
+	 */
+	static char getLastCharacter(String str) {
+		char lastChar = '　';
+		if (!str.strip().equals("")) {
+			lastChar = toUpperCharacter(str.charAt(str.length()-1));
+			
+			if (lastChar == 'ー') {
+				lastChar = changeLongVowel(toUpperCharacter(str.charAt(str.length()-2)));
+			}
+		}
+		return lastChar;
+	}
+	
+	/*
+	 * 最初の文字をゲットする
+	 * @param  String 	新しい言葉
+	 * @return char 	新しい言葉の最初の文字
+	 */
+	static char getFirstCharacter(String str) {
+		return str.charAt(0);
 	}
 	
 	/*
