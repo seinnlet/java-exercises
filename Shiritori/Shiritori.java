@@ -72,8 +72,7 @@ public class Shiritori {
 	
 	/*
 	 * 最初の文字をゲットする
-	 * 
-	 * @param  String 	入力した新しい言葉
+	 * @param  String 	新しい言葉
 	 * @return char 	新しい言葉の最初の文字
 	 */
 	static char getFirstCharacter(String str) {
@@ -132,6 +131,11 @@ public class Shiritori {
 		};
 	}
 	
+	/*
+	 * カタカナの長音を「あ、い、う、え、お」に変える。例えば、インタビュー → う
+	 * @param  char 文字
+	 * @return char 「あ、い、う、え、お」のいずれ
+	 */
 	static char changeLongVowel(char lastChar) {
 		return switch(lastChar) {
 		case 'か', 'さ', 'た', 'な', 'は', 'ま', 'や', 'ら', 'わ', 'が', 'ざ', 'だ', 'ば', 'ぱ' -> 'あ';
