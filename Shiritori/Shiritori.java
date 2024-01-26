@@ -67,9 +67,7 @@ public class Shiritori {
 	}
 	
 	/*
-	 * 新しい言葉を入力する
-	 * カタカナの場合、ひらがなに言葉
-	 * 
+	 * 新しい言葉を入力する（カタカナの場合、ひらがなに交換）
 	 * @param  Char		前回の言葉の最後の文字
 	 * @return String	新しい言葉
 	 */
@@ -78,14 +76,20 @@ public class Shiritori {
 		Scanner scan = new Scanner(System.in);
 		String word = scan.nextLine();
 		
-		StringBuffer sb = new StringBuffer(word);
-		for (int i = 0; i < word.length(); i++) {
-			char code = word.charAt(i);
-			if ((code >= 0x30a1) && (code <= 0x30f3)) {
-				sb.setCharAt(i, (char)(code - 0x60));
-			} 
+		if (!word.strip().equals("")) {
+			StringBuffer sb = new StringBuffer(word);
+			for (int i = 0; i < word.length(); i++) {
+				char code = word.charAt(i);
+				if ((code >= 0x30a1) && (code <= 0x30f3)) {
+					sb.setCharAt(i, (char)(code - 0x60));
+				}
+				if ((code >= 0x3000) && (code <= 0x301C)) {		// りんご。 → りんご
+					sb.setCharAt(i, '　');
+				}
+			}
+			word = sb.toString().strip();
 		}
-		return sb.toString();
+		return word;
 	}
 	
 	/*
