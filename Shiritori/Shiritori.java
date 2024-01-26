@@ -102,16 +102,14 @@ public class Shiritori {
 		}
 	}
 	
+	/*
+	 * 小さいかなを大きいかなにする
+	 * @param  char 文字
+	 * @return char 大きい文字
+	 */
 	static char toUpperCharacter(char lastChar) {
 		return switch(lastChar) {
-			case 'ゃ' -> 'や';
-			case 'ゅ' -> 'ゆ';
-			case 'ょ' -> 'よ';
-			case 'ぁ' -> 'あ';
-			case 'ぃ' -> 'い';
-			case 'ぅ' -> 'う';
-			case 'ぇ' -> 'え';
-			case 'ぉ' -> 'お';
+			case 'ゃ', 'ゅ', 'ょ', 'ぁ', 'ぃ', 'ぅ', 'ぇ', 'ぉ' -> (char)(lastChar+1);
 			default -> lastChar;
 		};
 	}
