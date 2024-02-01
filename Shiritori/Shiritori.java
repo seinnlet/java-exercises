@@ -1,5 +1,10 @@
 package shiritori;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,11 +42,16 @@ public class Shiritori {
 				} else {
 					
 					if(checkCharacter(getFirstCharacter(newWord), getLastCharacter(currentWord))) {
-						currentWord = newWord;
-						words.add(newWord);
-						i++;
+						
+						if (checkWordByWeblio(newWord)) {		// 辞書でチェック	
+							currentWord = newWord;
+							words.add(newWord);
+							i++;
+						} else {
+							System.out.println("辞書で見つかりません。もう一回入力してください。");
+						}
 					} else {
-						System.out.println("違います。もう一回入力してください。	");
+						System.out.println("違います。もう一回入力してください。");
 					}
 				}
 			} else {
@@ -139,13 +149,42 @@ public class Shiritori {
 	 */
 	static char changeLongVowel(char lastChar) {
 		return switch(lastChar) {
-		case 'か', 'さ', 'た', 'な', 'は', 'ま', 'や', 'ら', 'わ', 'が', 'ざ', 'だ', 'ば', 'ぱ' -> 'あ';
-		case 'き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'ぢ', 'び', 'ぴ' -> 'い';
-		case 'く', 'す', 'つ', 'ぬ', 'ふ', 'む', 'ゆ', 'る', 'ぐ', 'ず', 'づ', 'ぶ', 'ぷ' -> 'う';
-		case 'け', 'せ', 'て', 'ね', 'へ', 'め', 'れ', 'げ', 'ぜ', 'で', 'べ', 'ぺ' -> 'え';
-		case 'こ', 'そ', 'と', 'の', 'ほ', 'も', 'よ', 'ろ', 'を', 'ご', 'ぞ', 'ど', 'ぼ', 'ぽ' -> 'お';
-		default -> lastChar;
-	};
+			case 'か', 'さ', 'た', 'な', 'は', 'ま', 'や', 'ら', 'わ', 'が', 'ざ', 'だ', 'ば', 'ぱ' -> 'あ';
+			case 'き', 'し', 'ち', 'に', 'ひ', 'み', 'り', 'ぎ', 'じ', 'ぢ', 'び', 'ぴ' -> 'い';
+			case 'く', 'す', 'つ', 'ぬ', 'ふ', 'む', 'ゆ', 'る', 'ぐ', 'ず', 'づ', 'ぶ', 'ぷ' -> 'う';
+			case 'け', 'せ', 'て', 'ね', 'へ', 'め', 'れ', 'げ', 'ぜ', 'で', 'べ', 'ぺ' -> 'え';
+			case 'こ', 'そ', 'と', 'の', 'ほ', 'も', 'よ', 'ろ', 'を', 'ご', 'ぞ', 'ど', 'ぼ', 'ぽ' -> 'お';
+			default -> lastChar;
+		};
 	}
 	
+	/*
+	 * 言葉を辞書でチェックする
+	 * @param  String 言葉
+	 * @return boolean 辞書であったら true、なかったら false
+	 */
+	static boolean checkWordByWeblio(String word) {
+		URL url = null;
+        try {
+			url = new URL("https://www.weblio.jp/content/" + word);
+		} catch (MalformedURLException e) {
+			System.err.println(e);
+		}
+        
+        try (InputStreamReader is  = new InputStreamReader(url.openStream());) {
+			BufferedReader br = new BufferedReader(is);
+			StringBuilder content = new StringBuilder();
+			String s;
+			while ((s = br.readLine()) != null) {
+				content.append(s);
+			}
+			if (content.toString().contains("一致する見出し語は見つかりませんでした")) {
+				return false;
+			}
+		} catch (IOException e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+        return true;
+	}
 }
