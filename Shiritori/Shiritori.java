@@ -95,13 +95,13 @@ public class Shiritori {
 	 * @param  String 	前回の言葉
 	 * @return char		前回の言葉の最後の文字
 	 */
-	static char getLastCharacter(String str) {
+	static char getLastCharacter(String word) {
 		char lastChar = '　';
-		if (!str.strip().equals("")) {
-			lastChar = toUpperCharacter(str.charAt(str.length()-1));
+		if (!word.strip().equals("")) {
+			lastChar = toUpperCharacter(word.charAt(word.length()-1));
 			
-			if (lastChar == 'ー') {
-				lastChar = changeLongVowel(toUpperCharacter(str.charAt(str.length()-2)));
+			if (lastChar == 'ー' && word.length() >= 2) {
+				lastChar = changeLongVowel(toUpperCharacter(word.charAt(word.length()-2)));
 			}
 		}
 		return lastChar;
