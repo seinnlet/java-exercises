@@ -18,7 +18,7 @@ public class Shiritori {
 	}
 	
 	static void init() {
-		System.out.println("しりとり");
+		System.out.println("しりとり（ひらがなかカタカナで入力してください）");
 		System.out.println("----");
 	}
 	
